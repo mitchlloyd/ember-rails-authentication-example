@@ -9,6 +9,6 @@
       <label>password</label>
       {{input type="password" value=password class="form-control"}}
     </div>
-    <button class="btn btn-primary form-control">Sign in</button>
+    <button {{action 'login' model}} class="btn btn-primary form-control">Sign in</button>
   </form>
 </div>
