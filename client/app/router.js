@@ -6,7 +6,7 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('authenticated', function() {
+  this.route('authenticated', {path: '/'}, function() {
     this.resource('posts');
   });
 

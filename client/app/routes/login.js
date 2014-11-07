@@ -15,7 +15,7 @@ export default Ember.Route.extend({
   },
 
   authenticationDidSucceed: function() {
-
+    this.transitionTo('posts');
   },
 
   authenticationDidFail: function(response) {
