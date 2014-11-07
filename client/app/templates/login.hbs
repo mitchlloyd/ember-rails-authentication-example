@@ -1,5 +1,8 @@
 <div class="row">
   <form class="col-sm-3">
+    {{#if error}}
+      <div class="alert alert-danger">{{error}}</div>
+    {{/if}}
     <div class="form-group">
       <label>Email</label>
       {{input type="text" value=email class="form-control"}}
