@@ -1,44 +1,45 @@
 import Ember from 'ember';
-var run = Ember.run;
+var bind = Ember.run.bind;
 var computed = Ember.computed;
 var Promise = Ember.RSVP.Promise;
+var ajax = Ember.$.ajax;
+var ajaxPrefilter = Ember.$.ajaxPrefilter;
 
 export default Ember.Service.extend({
   sessionData: null,
   isAuthenticated: computed.alias('sessionData'),
 
   login: function(credentials) {
-    return Ember.$.post('login', credentials)
-      .then(run.bind(this, 'authenticationDidSucceed'));
+    return ajax({type: 'POST', url: 'login', data: credentials})
+      .then(bind(this, 'authenticationDidSucceed'));
   },
 
   logout: function() {
-    return Ember.$.ajax({type: 'DELETE', url: 'logout'})
-      .then(run.bind(this, 'logoutDidSucceed'));
+    return ajax({type: 'DELETE', url: 'logout'})
+      .then(bind(this, 'logoutDidSucceed'));
   },
 
   fetch: function() {
     return new Promise(function(resolve, reject) {
       if (this.get('sessionData')) {
-        resolve()
+        resolve();
       } else {
-        Ember.$.ajax({type: 'GET', url: 'sessions'})
-          .then(run.bind(this, 'authenticationDidSucceed'))
-          .then(resolve, reject)
-      };
+        ajax({type: 'GET', url: 'sessions'})
+          .then(bind(this, 'authenticationDidSucceed'))
+          .then(resolve, reject);
+      }
     }.bind(this));
   },
 
   authenticationDidSucceed: function(response) {
     this.set('sessionData', response);
-    var token = this.get('sessionData.csrf_token');
-    debugger;
-    $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+    var token = response.csrf_token;
+    ajaxPrefilter(function(options, originalOptions, jqXHR) {
       return jqXHR.setRequestHeader('X-CSRF-Token', token);
     });
   },
 
   logoutDidSucceed: function() {
-    this.set('sessionData', null)
+    this.set('sessionData', null);
   }
 });
