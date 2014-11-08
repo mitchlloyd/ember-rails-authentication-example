@@ -1,4 +1,9 @@
 <div class="container">
-  <h2 class='page-header'>Welcome to Ember.js</h2>
+  <h2 class='page-header'>
+    Welcome to Ember.js
+    {{#if session.isAuthenticated}}
+      <button {{action "logout"}} class="btn btn-default pull-right">Log out</button>
+    {{/if}}
+  </h2>
   {{outlet}}
 </div>
