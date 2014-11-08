@@ -12,6 +12,6 @@ export default Ember.Route.extend({
         title: "Second Post",
         body: "Authorization to the max"
       }
-    ]
+    ];
   }
 });
