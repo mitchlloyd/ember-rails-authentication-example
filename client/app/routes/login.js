@@ -1,5 +1,5 @@
 import Ember from 'ember';
-var run = Ember.run;
+var bind = Ember.run.bind;
 var inject = Ember.inject;
 
 export default Ember.Route.extend({
@@ -12,8 +12,8 @@ export default Ember.Route.extend({
   actions: {
     login: function(credentials) {
       this.get('session').login(credentials)
-        .then(run.bind(this, 'authenticationDidSucceed'),
-              run.bind(this, 'authenticationDidFail'));
+        .then(bind(this, 'authenticationDidSucceed'),
+              bind(this, 'authenticationDidFail'));
     }
   },
 
