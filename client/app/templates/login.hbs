@@ -3,14 +3,19 @@
     {{#if error}}
       <div class="alert alert-danger">{{error}}</div>
     {{/if}}
+
+    {{#if notice}}
+      <div class="alert alert-success">{{notice}}</div>
+    {{/if}}
+
     <div class="form-group">
       <label>Email</label>
-      {{input type="text" value=email class="form-control"}}
+      {{input type="text" value=model.email class="form-control"}}
     </div>
 
     <div class="form-group">
       <label>password</label>
-      {{input type="password" value=password class="form-control"}}
+      {{input type="password" value=model.password class="form-control"}}
     </div>
     <button {{action 'login' model}} class="btn btn-primary form-control">Sign in</button>
   </form>

@@ -11,10 +11,12 @@ export default Ember.Route.extend({
   },
 
   authenticationDidFail: function() {
+    this.controllerFor('login').set("error", "You need to login first");
     this.transitionTo('login');
   },
 
   logoutDidSucceed: function() {
+    this.controllerFor('login').set("notice", "You have been logged out");
     this.transitionTo('login');
   },
 

@@ -22,7 +22,11 @@ export default Ember.Route.extend({
   },
 
   authenticationDidFail: function(response) {
-    var message = response.responseJSON.error
+    var message = response.responseJSON.error;
     this.set('controller.error', message);
+  },
+
+  resetController: function(controller) {
+    controller.setProperties({error: null, notice: null});
   }
 });
