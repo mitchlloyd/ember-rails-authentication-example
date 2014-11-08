@@ -1,10 +1,11 @@
 import Ember from 'ember';
 var run = Ember.run;
 var computed = Ember.computed;
+var Promise = Ember.RSVP.Promise;
 
 export default Ember.Service.extend({
   sessionData: null,
-  isAuthenticated: computed.notEmpty('sessionData'),
+  isAuthenticated: computed.alias('sessionData'),
 
   login: function(credentials) {
     return Ember.$.post('login', credentials)
@@ -17,9 +18,15 @@ export default Ember.Service.extend({
   },
 
   fetch: function() {
-    // TODO: Should return a promise that can be cached.
-    return Ember.$.ajax({type: 'GET', url: 'sessions'})
-      .then(run.bind(this, 'authenticationDidSucceed'));
+    return new Promise(function(resolve, reject) {
+      if (this.get('sessionData')) {
+        resolve()
+      } else {
+        Ember.$.ajax({type: 'GET', url: 'sessions'})
+          .then(run.bind(this, 'authenticationDidSucceed'))
+          .then(resolve, reject)
+      };
+    }.bind(this));
   },
 
   authenticationDidSucceed: function(response) {

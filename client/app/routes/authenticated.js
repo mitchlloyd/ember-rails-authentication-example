@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 
   model: function() {
     return this.get('session').fetch()
-      .then(null, run.bind(this, 'authenticationDidFail'));
+      .catch(run.bind(this, 'authenticationDidFail'));
   },
 
   authenticationDidFail: function() {
