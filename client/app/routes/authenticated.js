@@ -1,10 +1,7 @@
 import Ember from 'ember';
-var inject = Ember.inject;
 var bind = Ember.run.bind;
 
 export default Ember.Route.extend({
-  session: inject.service(),
-
   model: function() {
     return this.get('session').fetch()
       .catch(bind(this, 'authenticationDidFail'));

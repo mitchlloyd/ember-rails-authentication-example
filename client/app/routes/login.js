@@ -1,10 +1,7 @@
 import Ember from 'ember';
 var bind = Ember.run.bind;
-var inject = Ember.inject;
 
 export default Ember.Route.extend({
-  session: inject.service(),
-
   model: function() {
     return {};
   },
