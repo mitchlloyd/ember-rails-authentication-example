@@ -2,13 +2,16 @@ import Ember from 'ember';
 var bind = Ember.run.bind;
 
 export default Ember.Route.extend({
-  model: function() {
+  beforeModel: function(transition) {
     return this.get('session').fetch()
-      .catch(bind(this, 'authenticationDidFail'));
+      .catch(bind(this, 'authenticationDidFail', transition));
   },
 
-  authenticationDidFail: function() {
-    this.controllerFor('login').set("error", "You need to login first");
+  authenticationDidFail: function(transition) {
+    this.controllerFor('login').setProperties({
+      error: "You need to login first",
+      attemptedTransition: transition
+    });
     this.transitionTo('login');
   },
 
