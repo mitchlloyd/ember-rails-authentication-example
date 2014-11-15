@@ -38,6 +38,15 @@ Ember is setup to proxy unknown requests to the Rails app at `localhost:3000`.
 
 To use the app visit http://localhost:4200/posts
 
+You can login with these credentials:
+
+<dl>
+  <dt>email:<dt>
+  <dd>user@example.com</dd>
+  <dt>password:<dt>
+  <dd>password</dd>
+</dl>
+
 
 Key Architecture Points
 -----------------------
