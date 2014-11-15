@@ -4,13 +4,13 @@ Ember and Rails Authentication from Scratch
 This is an example of setting up authentication with Ember and Rails without
 using any additional libraries.
 
-If you're setting up authentication you should look at:
+If you're setting up authentication you should consider using:
 
 * [Sorcery](https://github.com/NoamB/sorcery) for Rails authentication
 * [Ember Simple Auth](http://ember-simple-auth.simplabs.com/)
 
 
-Setting Up this Application
+Setting Up the Application
 ---------------------------
 
 ```
@@ -19,7 +19,7 @@ rake db:setup
 ```
 
 
-Running this Application
+Running the Application
 ------------------------
 
 In the server directory run
@@ -35,6 +35,8 @@ ember serve
 ```
 
 Ember is setup to proxy unknown requests to the Rails app at `localhost:3000`.
+
+To use the app visit http://localhost:4200/posts
 
 
 Key Architecture Points
@@ -57,6 +59,14 @@ the current user information and CSRF token from the Rails app. It redirects the
 user to the login form if this login attempt fails. Also notice that this route
 stores the attempted transition when authentication fails. This transition will
 then be retried when the user later logs in.
+
+The authenticated route provides an easy way to wrap child templates in an
+authenticated template so that they can all share a common layout. Also the
+authenticated route ensures that the session is loaded so that the client can
+change its behavior based on whether or not the `session.isAuthenticated`. The
+purpose of the authenticated route is _not_ to secure data (in this case posts).
+The server ensures that the user is authorized when asking for the posts and
+returns a 401 if they are not logged in.
 
 The [login route](client/app/routes/authenticated.js) handles login and failed
 login attempts.
