@@ -24,7 +24,7 @@ export default Ember.Service.extend({
       if (this.get('sessionData')) {
         resolve();
       } else {
-        ajax({type: 'GET', url: 'sessions'})
+        ajax({type: 'GET', url: 'session'})
           .then(bind(this, 'authenticationDidSucceed'))
           .then(resolve, reject);
       }

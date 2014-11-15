@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
 
-  def index
+  def show
     if session[:user_id]
       user = User.find(session[:user_id])
       render json: session_payload(user)
